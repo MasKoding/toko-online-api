@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-use function PHPSTORM_META\map;
 
 class AuthController extends Controller
 {
@@ -21,9 +20,9 @@ class AuthController extends Controller
         $user =  User::where('email',$request->email)->first();   
         if($validasi->fails()){
          
-            return $this->error_message($validasi->errors()->all());
+            return $this->error_message($validasi->errors()->first());
         }
-        
+
         if($user){
             if(password_verify($request->password,$user->password)){
                 return $this->success_message($user);
